@@ -61,16 +61,17 @@ class UserManager(models.Manager):
     def login(self, data):
         results = {'status': True, 'errors':[], 'user': None}
         if not User.objects.filter(email=data['email']).exists():
-            errors.append('Email is not recognized')
-            return{'errors':errors}
+            results['errors'].append('Email is not recognized')
+            results['status'] = False
         else:
             user = User.objects.get(email=data['email'])
-            if user.password != data['password']:
-                errors.append('Incorrect Password')
+            if not bcrypt.hashpw(data['password'].encode(), user.password.encode()):
+                print "bad password"
+                results['errors'].append('Incorrect Password')
             else:
+                results['user'] = user
                 print user
-                return{'first':user.first_name, 'id':user.id}
-# if user[0].password = bcrypt.hashpw(data['password'.encode(), user[0].password])
+                return results
 
 class User(models.Model):
     first_name = models.CharField(max_length=50)

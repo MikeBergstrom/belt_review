@@ -15,8 +15,8 @@ def index(request):
 def login(request):
     user= User.objects.login(request.POST)
     if user['status']:
-        request.session['first'] = user['first']
-        request.session['id'] = user['id']
+        request.session['first'] = user['user'].first_name
+        request.session['id'] = user['user'].id
         request.session['status'] = "logged in"
         return redirect('/books')
     else:
