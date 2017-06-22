@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{{book.title}}</title>
+          {% load staticfiles %}
+        <link rel="stylesheet" type = "text/css" href="{% static 'login/css/style.css' %}"> 
+    </head>
+    <body>
+        <h3>User Alias: {{user.first_name}}</h3>
+        <h4>Name: {{user.first_name}} {{user.last_name}}</h4>
+        <h4>Email: {{user.email}}</h4>
+        <h4>Total Reviews: {{user.total_reviews}}</h4>
+        <h4>Posted Reviews on the following books:</h4>
+        {% for review in reviews %}
+        <h5><a href="http://localhost:8000/books/{{review.review_book.id}}">{{review.review_book.title}}</a></h5>
+        {% endfor %}
+    </body>

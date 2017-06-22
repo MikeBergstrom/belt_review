@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Welcome</title>
+          {% load staticfiles %}
+        <link rel="stylesheet" type = "text/css" href="{% static 'reviews/css/style.css' %}"> 
+    </head>
+    <body>
+        <header>
+            <h3>Welcome, {{request.session.first}}!</h3>
+            <a href="http://localhost:8000/add">Add Book and Review</a>
+            <a href="http://localhost:8000/logout">Logout</a>
+        </header>
+        <div class="reviews">
+            <h4>Recent Book Reviews:</h4>
+            {% for review in reviews%}
+            <a href="http://localhost:8000/books/{{review.review_book.id}}">{{review.review_book.title}}</a>
+           
+            <a href="http://localhost:8000/user/{{review.review_user.id}}">{{review.review_user.first_name}}</a> says: {{review.review}}
+            {{review.created_at}}
+             <h5>Rating:</h5>
+            {% if review.star == 0 %}
+            <img src={% static 'reviews/images/0.png' %} width="100">
+            {% elif review.star == 1 %}
+            <img src={% static 'reviews/images/1.png' %} width="100">
+            {% elif review.star == 2 %}
+            <img src={% static 'reviews/images/2.png' %} width="100">
+            {% elif review.star == 3 %}
+            <img src={% static 'reviews/images/3.png' %} width="100">
+            {% elif review.star == 4 %}
+            <img src={% static 'reviews/images/4.png' %} width="100">
+            {% elif review.star == 5 %}
+            <img src={% static 'reviews/images/5.png' %} width="100">
+            {% endif %}<br>
+            {% endfor %}
+        </div>
+        <div class="booklist" style="overflow">
+            <h4>Other Books With Reviews:</h4>
+            {% for book in books %}
+            <a href="http://localhost:8000/books/{{book.id}}">{{book.title}}</a>
+            {% endfor %}
+        </div>
+    </body>
