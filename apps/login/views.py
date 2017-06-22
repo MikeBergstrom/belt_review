@@ -8,8 +8,7 @@ import datetime
 
 
 def index(request):
-    timediff = (datetime.datetime.now()-datetime.datetime.now())
-    # print timediff.total_minutes()
+    # User.objects.all().delete()
     return render(request, 'login/index.html')
 
 def login(request):
@@ -39,20 +38,4 @@ def register(request):
         request.session['id'] = user['user'].id
         print request.session['first']
         print request.session['id']
-        return redirect ('/books')
-    # if 'useremail' in user:
-    #     print "success"
-    #     request.session['first']=request.POST['first']
-    #     request.session['status']="registered"
-    #     User.objects.create(first_name=request.POST['first'], last_name=request.POST['last'], email=request.POST['email'], password=request.POST['password'])
-    #     getid = User.objects.get(email=request.POST['email'])
-    #     request.session['id'] = getid.id
-    #     return redirect('/books')
-    # elif 'errors' in user:
-    #     request.session['errors']=user['errors'][0]
-    #     print "failure"
-    #     print user['errors']
-    #     for error in user['errors']:
-    #         messages.error(request, error, extra_tags="register")
-    #     return redirect('/')
-    
+        return redirect ('/books')    

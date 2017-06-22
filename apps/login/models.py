@@ -65,13 +65,15 @@ class UserManager(models.Manager):
             results['status'] = False
         else:
             user = User.objects.get(email=data['email'])
-            if not bcrypt.hashpw(data['password'].encode(), user.password.encode()):
+            passhash = bcrypt.hashpw(data['password'].encode(), user.password.encode())
+            if not passhash == user.password.encode():
                 print "bad password"
                 results['errors'].append('Incorrect Password')
+                results['status']= False
             else:
                 results['user'] = user
                 print user
-                return results
+            return results
 
 class User(models.Model):
     first_name = models.CharField(max_length=50)
